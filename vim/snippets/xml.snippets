@@ -78,8 +78,6 @@ snippet page
 	<page string="${1:Label}">
 	    $2
 	</page>
-snippet label < 7.0
-	<label string="${1:Label}"/>
 snippet label >= 7.0
 	<label for="${2:Field}" string="${1:Label}"/>
 snippet attribute
@@ -136,10 +134,6 @@ snippet tree
 	<tree string="${1:Label}">
 	    $2
 	</tree>
-snippet form < 7.0
-	<form string="${1:Label}">
-	    $2
-	</form>
 snippet form >= 7.0
 	<form string="${1:Label}" version="7.0">
 	    $2
@@ -198,22 +192,12 @@ snippet sheet
 	<sheet>
 	    $1
 	</sheet>
-snippet menuitem Action < 7.0
-	<menuitem id="menu_${1:ir_model_data}" 
-	    parent="menu_${2:menu_parent}"
-	    sequence="${3:20}"
-	    action="action_${4:Action}"/>
 snippet menuitem Action >= 7.0
 	<menuitem id="${1:ir_model_data}_menu" 
 	    parent="${2:menu_parent}_menu"
 	    sequence="${3:20}"
 	    name="${5:Label}"
 	    action="${4:Action}_action"/>
-snippet menuitem Name < 7.0
-	<menuitem id="menu_${1:ir_model_data}" 
-	    parent="menu_${2:menu_parent}"
-	    sequence="${3:20}"
-	    name="${4:Label}"/>
 snippet menuitem Server Action
 	<record id="action_${1:refid_server}" model="ir.actions.server">
 	    <field name="name">${2:Name of the action}</field>
@@ -232,40 +216,6 @@ snippet wizard <wizard/>
 	    string="${2:label}"
 	    model="${3:ir.model}"
 	    name="${4:wizard_name}"/>
-snippet wizard osv_memory menu < 7.0
-	<record id="view_${1:model}_form" model="ir.ui.view">
-	    <field name="name">$2.form</field>
-	    <field name="model">${2:Model}</field>
-	    <field name="type">form</field>
-	    <field name="priority" eval="8"/>
-	    <field name="arch" type="xml">
-		<form string="${3:Label}">
-		    <field name="${4:name}"/>
-		    <separator string="" colspan="4" />
-		    <group colspan="4" col="6">
-		        <label string ="" colspan="2"/>
-		        <button icon="gtk-cancel" special="cancel" string="Cancel"/>
-		        <button icon="terp-gtk-go-back-rtl" string="Start" name="${5:_continue}" type="object"/>
-		    </group>
-		</form>
-	    </field>
-	</record>
-	
-	<record model="ir.actions.act_window" id="action_$1_view">
-	    <field name="name">$3</field>
-	    <field name="type">ir.actions.act_window</field>
-	    <field name="res_model">$2</field>
-	    <field name="view_type">form</field>
-	    <field name="view_mode">form</field>
-	    <field name="domain">[]</field>
-	    <field name="context">{}</field>
-	    <field name="target">new</field>
-	</record>
-	
-	<menuitem id="menu_$1_wizard"
-	    parent="menu_${6:menu_parent}"
-	    sequence="${7:20}"
-	    action="action_$1_view"/>
 snippet wizard osv_memory menu >= 7.0
 	<record id="view_${1:model}_form" model="ir.ui.view">
 	    <field name="name">$2.form</field>

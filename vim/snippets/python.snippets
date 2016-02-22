@@ -6,11 +6,7 @@ snippet imp
 	import ${1:module}
 snippet from
 	from ${1:module} import ${2:class}
-snippet osv <= 6.0
-	from osv import osv
-	from osv import fields
-	${1}
-snippet osv >= 6.1
+snippet osv == 7.0
 	from openerp.osv import osv
 	from openerp.osv import orm
 	from openerp.osv import fields
@@ -71,17 +67,6 @@ snippet rule
 #
 # Define class for OpenObject
 #
-snippet oo OpenObject Class < 7.0
-	class ${1:ClassName}(osv.osv):
-		_name = '${2:ObjectName}'
-		_description = '${3}'
-	
-		_columns = {
-			${4}
-		}
-	
-	$1()
-	
 snippet oo OpenObject Class == 7.0
 	class ${1:ClassName}(orm.Model):
 		_name = '${2:ObjectName}'
@@ -98,16 +83,6 @@ snippet oo OpenObject Class >= 8.0
 	
 		${4}
 	
-snippet ooi OpenObject Class Inherit < 7.0
-	class ${1:ClassName}(osv.osv):
-		_inherit = '${2:ObjectName}'
-	
-		_columns = {
-			${3}
-		}
-	
-	$1()
-	
 snippet ooi OpenObject Class Inherit == 7.0
 	class ${1:ClassName}(orm.Model):
 		_inherit = '${2:ObjectName}'
@@ -121,17 +96,6 @@ snippet ooi OpenObject Class Inherit >= 8.0
 		_inherit = '${2:ObjectName}'
 	
 		${3}
-	
-snippet oom Wizard osv_memory
-	class ${1:ClassName}(osv.osv_memory):
-		_name = '${2:ObjectName}'
-		_description = '${3:Description}'
-	
-		_columns = {
-			${4}
-		}
-	
-	$1()
 	
 snippet oom Wizard TransientModel == 7.0
 	class ${1:ClassName}(orm.TransientModel):
@@ -148,16 +112,6 @@ snippet oom Wizard TransientModel >= 8.0
 		_description = '${3:Description}'
 	
 		${4}
-	
-snippet oomi Open Object\Wizard Inherit
-	class ${1:ClassName}(osv.osv_memory):
-		_inherit = '${2:ObjectName}'
-	
-		_columns = {
-			${3}
-		}
-	
-	$1()
 	
 snippet oomi Wizard TransientModel Inherit == 7.0
 	class ${1:ClassName}(orm.TransientModel):
@@ -259,9 +213,7 @@ snippet required
 	required=True, ${1}
 snippet translate argument
 	translate=True, ${1}
-snippet translate import OpenERP <= 6.0
-	from tools.translate import _
-snippet translate import OpenERP >= 6.1
+snippet translate import
 	from openerp.tools.translate import _
 snippet dp
 	digits_compute=dp.get_precision('${1:PrecisionName}'), ${2}
