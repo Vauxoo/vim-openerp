@@ -6,11 +6,7 @@ snippet imp
 	import ${1:module}
 snippet from
 	from ${1:module} import ${2:class}
-snippet osv <= 6.0
-	from osv import osv
-	from osv import fields
-	${1}
-snippet osv >= 6.1
+snippet osv == 7.0
 	from openerp.osv import osv
 	from openerp.osv import orm
 	from openerp.osv import fields
@@ -39,27 +35,73 @@ snippet cl
 			${5:super($1, self).__init__()}
 			self.$4 = $4
 			${6}
-snippet copyright
+snippet copyright with Coded by
 	##############################################################################
-	#
-	#    ${1:ModuleName} module for OpenERP, ${2:Description}
-	#    Copyright (C) ${3:200X} ${4:Company} (<http://${5:website}>) ${6:author}
-	#
-	#    This file is a part of $1
-	#
-	#    $1 is free software: you can redistribute it and/or modify
-	#    it under the terms of the GNU General Public License as published by
+	#    Module Writen to OpenERP, Open Source Management Solution
+	#    Copyright (C) Vauxoo (<http://vauxoo.com>).
+	#    All Rights Reserved
+	###############Credits######################################################
+	#    Coded by: ${1:Name} (${2:Email})
+	#############################################################################
+	#    This program is free software: you can redistribute it and/or modify
+	#    it under the terms of the GNU Affero General Public License as published by
 	#    the Free Software Foundation, either version 3 of the License, or
 	#    (at your option) any later version.
 	#
-	#    $1 is distributed in the hope that it will be useful,
+	#    This program is distributed in the hope that it will be useful,
 	#    but WITHOUT ANY WARRANTY; without even the implied warranty of
 	#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	#    GNU General Public License for more details.
+	#    GNU Affero General Public License for more details.
 	#
-	#    You should have received a copy of the GNU General Public License
+	#    You should have received a copy of the GNU Affero General Public License
 	#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	##############################################################################
+	${3}
+snippet copyright with Coded by and Planified by
+	##############################################################################
+	#    Module Writen to OpenERP, Open Source Management Solution
+	#    Copyright (C) Vauxoo (<http://vauxoo.com>).
+	#    All Rights Reserved
+	###############Credits######################################################
+	#    Coded by: ${1:Name} (${2:Email})
+	#    Planified by: ${3:Name} (${4:Email})
+	#############################################################################
+	#    This program is free software: you can redistribute it and/or modify
+	#    it under the terms of the GNU Affero General Public License as published by
+	#    the Free Software Foundation, either version 3 of the License, or
+	#    (at your option) any later version.
 	#
+	#    This program is distributed in the hope that it will be useful,
+	#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+	#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	#    GNU Affero General Public License for more details.
+	#
+	#    You should have received a copy of the GNU Affero General Public License
+	#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	##############################################################################
+	${5}
+snippet copyright with Coded by, Planified by and Audited by
+	##############################################################################
+	#    Module Writen to OpenERP, Open Source Management Solution
+	#    Copyright (C) Vauxoo (<http://vauxoo.com>).
+	#    All Rights Reserved
+	###############Credits######################################################
+	#    Coded by: ${1:Name} (${2:Email})
+	#    Planified by: ${3:Name} (${4:Email})
+	#    Audited by: ${5:Name} (${6:Email})
+	#############################################################################
+	#    This program is free software: you can redistribute it and/or modify
+	#    it under the terms of the GNU Affero General Public License as published by
+	#    the Free Software Foundation, either version 3 of the License, or
+	#    (at your option) any later version.
+	#
+	#    This program is distributed in the hope that it will be useful,
+	#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+	#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	#    GNU Affero General Public License for more details.
+	#
+	#    You should have received a copy of the GNU Affero General Public License
+	#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	##############################################################################
 	${7}
 snippet config
@@ -71,17 +113,6 @@ snippet rule
 #
 # Define class for OpenObject
 #
-snippet oo OpenObject Class < 7.0
-	class ${1:ClassName}(osv.osv):
-		_name = '${2:ObjectName}'
-		_description = '${3}'
-	
-		_columns = {
-			${4}
-		}
-	
-	$1()
-	
 snippet oo OpenObject Class == 7.0
 	class ${1:ClassName}(orm.Model):
 		_name = '${2:ObjectName}'
@@ -98,16 +129,6 @@ snippet oo OpenObject Class >= 8.0
 	
 		${4}
 	
-snippet ooi OpenObject Class Inherit < 7.0
-	class ${1:ClassName}(osv.osv):
-		_inherit = '${2:ObjectName}'
-	
-		_columns = {
-			${3}
-		}
-	
-	$1()
-	
 snippet ooi OpenObject Class Inherit == 7.0
 	class ${1:ClassName}(orm.Model):
 		_inherit = '${2:ObjectName}'
@@ -121,17 +142,6 @@ snippet ooi OpenObject Class Inherit >= 8.0
 		_inherit = '${2:ObjectName}'
 	
 		${3}
-	
-snippet oom Wizard osv_memory
-	class ${1:ClassName}(osv.osv_memory):
-		_name = '${2:ObjectName}'
-		_description = '${3:Description}'
-	
-		_columns = {
-			${4}
-		}
-	
-	$1()
 	
 snippet oom Wizard TransientModel == 7.0
 	class ${1:ClassName}(orm.TransientModel):
@@ -148,16 +158,6 @@ snippet oom Wizard TransientModel >= 8.0
 		_description = '${3:Description}'
 	
 		${4}
-	
-snippet oomi Open Object\Wizard Inherit
-	class ${1:ClassName}(osv.osv_memory):
-		_inherit = '${2:ObjectName}'
-	
-		_columns = {
-			${3}
-		}
-	
-	$1()
 	
 snippet oomi Wizard TransientModel Inherit == 7.0
 	class ${1:ClassName}(orm.TransientModel):
@@ -178,90 +178,88 @@ snippet this (use in wizard)
 # Define type of fields
 #
 snippet fields fields.char
-	'${1:fieldname}': fields.char('${2:Label}', size=${3:64}, ${5}help='${4:Help note}'),${6}
+	'${1:fieldname}': fields.char("${2:Label}", size=${3:64}, ${5}help="${4:Help note}"),${6}
 snippet fields fields.integer
-	'${1:fieldname}': fields.integer('${2:Label}', ${4}help='${3:Help note}'),${5}
+	'${1:fieldname}': fields.integer("${2:Label}", ${4}help="${3:Help note}"),${5}
 snippet fields fields.float
-	'${1:fieldname}': fields.float('${2:Label}', digits_compute=dp.get_precision('${3:PrecisionName}'), ${5}help='${4:Help note}'),${6}
+	'${1:fieldname}': fields.float("${2:Label}", digits_compute=dp.get_precision('${3:PrecisionName}'), ${5}help="${4:Help note}"),${6}
 snippet fields fields.boolean
-	'${1:fieldname}': fields.boolean('${2:Label}', ${4}help='${3:Help note}'),${5}
+	'${1:fieldname}': fields.boolean("${2:Label}", ${4}help="${3:Help note}"),${5}
 snippet fields fields.date
-	'${1:fieldname}': fields.date('${2:Label}', ${4}help='${3:Help note}'),${5}
+	'${1:fieldname}': fields.date("${2:Label}", ${4}help="${3:Help note}"),${5}
 snippet fields fields.datetime
-	'${1:fieldname}': fields.datetime('${2:Label}', ${4}help='${3:Help note}'),${5}
+	'${1:fieldname}': fields.datetime("${2:Label}", ${4}help="${3:Help note}"),${5}
 snippet fields fields.selection
-	'${1:fieldname}': fields.selection(${2:[('', '')]}, '${3:Label}', ${5}help='${4:Help note}'),${6}
+	'${1:fieldname}': fields.selection(${2:[('', '')]}, "${3:Label}", ${5}help="${4:Help note}"),${6}
 snippet fields fields.many2one
-	'${1:fieldname}_id': fields.many2one('${2:ObjectName}', '${3:Label}', ${5}help='${4:Help note}'),${6}
+	'${1:fieldname}_id': fields.many2one('${2:ObjectName}', "${3:Label}", ${5}help="${4:Help note}"),${6}
 snippet fields fields.many2many
-	'${1:fieldname}_ids': fields.many2many('${2:ObjectName}', '${3:TableRel}', '${4:src_id}', '${5:dst_id}', '${6:Label}', ${8}help='${7:Help note}'),${9}
+	'${1:fieldname}_ids': fields.many2many('${2:ObjectName}', '${3:TableRel}', '${4:src_id}', '${5:dst_id}', "${6:Label}", ${8}help="${7:Help note}"),${9}
 snippet fields fields.one2many
-	'${1:fieldname}_ids': fields.one2many('${2:ObjectName}', '${3:fieldname}_id', '${4:Label}', ${6}help='${5:Help note}'),${7}
+	'${1:fieldname}_ids': fields.one2many('${2:ObjectName}', '${3:fieldname}_id', "${4:Label}", ${6}help="${5:Help note}"),${7}
 snippet fields fields.function
 	'${1:fieldname}': fields.function(${2:FunctionName},
 					    method=${3:True},
-					    string='${4:label}',
+					    string="${4:label}",
 					    type='${5:float}',
 					    store=${6:False},${8}
-					    help='${7:Help note}'),${9}
+					    help="${7:Help note}"),${9}
 snippet fields fields.related
 	'${1:fieldname}': fields.related('${2:field in}', '${3:field rel}', type='${4:many2one}', ${5:relation='res.partner'},
-					    string='${6:Label}', ${8}help='${7:Help note}'),${9}
+					    string="${6:Label}", ${8}help="${7:Help note}"),${9}
 snippet fields fields.property
 	'${1:fieldname}': fields.property('${2:object}', method=${3:True},
-			    string='${4:label}', type='${5:many2one}', ${7}help='${6:Help note}'),${8}
+			    string="${4:label}", type='${5:many2one}', ${7}help="${6:Help note}"),${8}
 snippet fields fields.text
-	'${1:fieldname}': fields.text('${2:Label}', ${4}help='${3:Help note}'),${5}
+	'${1:fieldname}': fields.text("${2:Label}", ${4}help="${3:Help note}"),${5}
 snippet fields fields.binary
-	'${1:fieldname}': fields.binary('${2:Label}', ${4}help='${3:Help note}'),${5}
+	'${1:fieldname}': fields.binary("${2:Label}", ${4}help="${3:Help note}"),${5}
 snippet fields fields.reference
-	'${1:fieldname}': fields.reference('${2:Label}', selection=${3:[('', '')]}, size=128, ${5}help='${4:Help note}'),${6}
+	'${1:fieldname}': fields.reference("${2:Label}", selection=${3:[('', '')]}, size=128, ${5}help="${4:Help note}"),${6}
 #
 # Define type of fields (New API)
 #
 snippet field fields.Char
-	${1:fieldname} = fields.Char(string='${2:Label}', size=${3:64}, ${5}help='${4:Help note}')${6}
+	${1:fieldname} = fields.Char(string="${2:Label}", size=${3:64}, ${5}help="${4:Help note}")${6}
 snippet field fields.Integer
-	${1:fieldname} = fields.Integer(string='${2:Label}', ${4}help='${3:Help note}')${5}
+	${1:fieldname} = fields.Integer(string="${2:Label}", ${4}help="${3:Help note}")${5}
 snippet field fields.Float
-	${1:fieldname} = fields.Float(string='${2:Label}', digits_compute=dp.get_precision('${3:PrecisionName}'), ${5}help='${4:Help note}')${6}
+	${1:fieldname} = fields.Float(string="${2:Label}", digits_compute=dp.get_precision('${3:PrecisionName}'), ${5}help="${4:Help note}")${6}
 snippet field fields.Boolean
-	${1:fieldname} = fields.Boolean(string='${2:Label}', ${4}help='${3:Help note}')${5}
+	${1:fieldname} = fields.Boolean(string="${2:Label}", ${4}help="${3:Help note}")${5}
 snippet field fields.Date
-	${1:fieldname} = fields.Date(string='${2:Label}', ${4}help='${3:Help note}')${5}
+	${1:fieldname} = fields.Date(string="${2:Label}", ${4}help="${3:Help note}")${5}
 snippet field fields.Datetime
-	${1:fieldname} = fields.Datetime(string='${2:Label}', ${4}help='${3:Help note}')${5}
+	${1:fieldname} = fields.Datetime(string="${2:Label}", ${4}help="${3:Help note}")${5}
 snippet field fields.Selection
-	${1:fieldname} = fields.Selection(selection=${2:[('', '')]}, string='${3:Label}', ${5}help='${4:Help note}')${6}
+	${1:fieldname} = fields.Selection(selection=${2:[('', '')]}, string="${3:Label}", ${5}help="${4:Help note}")${6}
 snippet field fields.Many2one
-	${1:fieldname}_id = fields.Many2one(comodel_name='${2:ObjectName}', string='${3:Label}', ${5}help='${4:Help note}')${6}
+	${1:fieldname}_id = fields.Many2one(comodel_name='${2:ObjectName}', string="${3:Label}", ${5}help="${4:Help note}")${6}
 snippet field fields.Many2many
-	${1:fieldname}_ids = fields.Many2many(comodel_name='${2:ObjectName}', string='${3:Label}', ${5}help='${4:Help note}')${6}
+	${1:fieldname}_ids = fields.Many2many(comodel_name='${2:ObjectName}', string="${3:Label}", ${5}help="${4:Help note}")${6}
 snippet field fields.One2many
-	${1:fieldname}_ids = fields.One2many(comodel_name='${2:ObjectName}', inverse_name='${3:fieldname}_id', string='${4:Label}', ${6}help='${5:Help note}')${7}
+	${1:fieldname}_ids = fields.One2many(comodel_name='${2:ObjectName}', inverse_name='${3:fieldname}_id', string="${4:Label}", ${6}help="${5:Help note}")${7}
 snippet field fields.Property
 	${1:fieldname} = fields.Property('${2:object}', method=${3:True},
-			    string='${4:label}', type='${5:many2one}', ${7}help='${6:Help note}')${8}
+			    string="${4:label}", type='${5:many2one}', ${7}help="${6:Help note}")${8}
 snippet field fields.Text
-	${1:fieldname} = fields.Text(string='${2:Label}', ${4}help='${3:Help note}')${5}
+	${1:fieldname} = fields.Text(string="${2:Label}", ${4}help="${3:Help note}")${5}
 snippet field fields.Binary
-	${1:fieldname} = fields.Binary(string='${2:Label}', ${4}help='${3:Help note}')${5}
+	${1:fieldname} = fields.Binary(string="${2:Label}", ${4}help="${3:Help note}")${5}
 snippet field fields.Reference
-	${1:fieldname} = fields.Reference(string='${2:Label}', selection=${3:[('', '')]}, size=128, ${5}help='${4:Help note}')${6}
+	${1:fieldname} = fields.Reference(string="${2:Label}", selection=${3:[('', '')]}, size=128, ${5}help="${4:Help note}")${6}
 # Attribute for fields
 snippet domain
 	domain=[('${1:state}', '${2:=}', '${3:done}')]
 snippet help
-	help='${1:Help about Field}',
+	help="${1:Help about Field}",
 snippet readonly
 	readonly=True, ${1}
 snippet required
 	required=True, ${1}
 snippet translate argument
 	translate=True, ${1}
-snippet translate import OpenERP <= 6.0
-	from tools.translate import _
-snippet translate import OpenERP >= 6.1
+snippet translate import
 	from openerp.tools.translate import _
 snippet dp
 	digits_compute=dp.get_precision('${1:PrecisionName}'), ${2}
@@ -663,7 +661,7 @@ snippet color
 	'color': fields.integer('${1:Colour}'),
 	# PLEASE ADD A DEFAULT VALUE 0 FOR THE color FIELD!
 snippet state
-	'state': fields.selection(${1:[('', '')]}, '${2:Label}', help='${3:Help note}'),${4}
+	'state': fields.selection(${1:[('', '')]}, "${2:Label}", help="${3:Help note}"),${4}
 	# PLEASE ADD A DEFAULT VALUE (e.g. draft) FOR THE state FIELD!
 snippet logger
 	import netsvc
